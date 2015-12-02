@@ -41,17 +41,17 @@
 				src="images/logo.jpg" />
 			<p id="profile-name" class="profile-name-card"></p>
 			<%
-				model.Numeros numeros = (model.Numeros) request
+				model.Numeros numeros = (model.Numeros) session
 						.getAttribute("numeros");
 			%>
-			<h4 align="center"><%=numeros.sorteado() %></h4>
+			<h4 align="center"><%=numeros.sorteado()%></h4>
 			<br>
 			<form>
-			<button class="btn btn-lg btn-primary btn-block btn-signin"
-				type="submit" name="acao" value="sortear">Sortear</button>
-			<button class="btn btn-lg btn-primary btn-block btn-signin"
-				type="submit" name="acao" value="reinicar">Reiniciar</button>
-			<br>
+				<button class="btn btn-lg btn-primary btn-block btn-signin"
+					type="submit" name="acao" value="sortear">Sortear</button>
+				<button class="btn btn-lg btn-primary btn-block btn-signin"
+					type="submit" name="acao" value="reiniciar">Reiniciar</button>
+				<br>
 			</form>
 			<!-- /form -->
 		</div>

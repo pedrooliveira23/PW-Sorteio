@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,21 +18,30 @@ public class Controlador extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession sessao = req.getSession();
+
+		Numeros num;
+		
+		if(sessao.getAttribute("numeros") == null) {
+			num = new Numeros();
+			sessao.setAttribute("numeros", num);
+		} else {
+			num = (Numeros) sessao.getAttribute("numeros");
+		}
 		
 		String paramAcao = req.getParameter("acao");
 		String acao = paramAcao == null ? "" : paramAcao;
 		
-		Numeros numeros = new Numeros();
 		
 		if(acao.equals("sortear")) {
-			numeros.sortear();
-		} else {
-			numeros = new Numeros();
+			num.sortear();
+			sessao.setAttribute("numeros", num);
+		} else if (acao.equals("reiniciar")){
+			num = new Numeros();
+			sessao.setAttribute("numeros", num);
 		}
 		
-		sessao.setAttribute("numeros", numeros);
-		
-		
+		sessao.setAttribute("numeros", num);
+
 		req.getRequestDispatcher("index.jsp").forward(req, resp);
 	}
 

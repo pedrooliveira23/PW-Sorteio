@@ -5,13 +5,16 @@ import java.util.ArrayList;
 public class Numeros {
 	private ArrayList<Integer> numeros;
 	private String num;
-	
+	private int y;
+
 	public Numeros() {
-		setNumeros(new ArrayList<Integer>(10));
 		popular();
 	}
 
-	public void popular() {
+	private void popular() {
+		numeros = new ArrayList<Integer>(10);
+		num = "?";
+		y =0;
 		for (int i = 1; i <= 10; i++) {
 			getNumeros().add(i);
 		}
@@ -26,21 +29,30 @@ public class Numeros {
 	}
 
 	public void sortear() {
-		
 		if (numeros.size() > 0) {
-			int i = (int) Math.random() * 10;
-			String numero = numeros.get(i).toString();
-			numeros.remove(i);
-			num = numero;
+			try {
+				int i = (int) Math.round(Math.random() * 10);
+				String numero = numeros.get(i).toString();
+				numeros.remove(i);
+				if (num.equals("?")) {
+					num = numero + " ";
+				} else {
+					num += numero + " ";
+				}
+			} catch (IndexOutOfBoundsException e) {
+				sortear();
+			}
+		} else {
+			if(y < 3) {
+				num += "!";
+				y++;
+			} else {
+				num +=" PARE DE TENTAR ";
+			}
 		}
-		num = "!";
 	}
-	
+
 	public String sorteado() {
-		if(num==null) {
-			return "?";
-		}
-		
 		return num;
 	}
 
